@@ -10,7 +10,7 @@ createRoot(document.getElementById('root')).render(
     v7_startTransition: true,
     v7_relativeSplatPath: true,
   }}>
-    <App />
+      <App />
     </BrowserRouter>
   </StrictMode>,
 )
