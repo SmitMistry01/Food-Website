@@ -5,6 +5,7 @@ import { AboutUs } from "./components/AboutUs";
 import { Cart } from "./components/Cart";
 import { Footer } from "./components/Footer";
 import { Routes, Route } from "react-router-dom";
+import { ResMenu } from "./components/ResMenu";
 
 function App() {
   // useEffect(() => {
@@ -25,13 +26,14 @@ function App() {
   return (
     <>
       <div className="app">
-          <Header />
-          <Routes>
-            <Route path="/" element={<Body />} />
-            <Route path="/about" element={<AboutUs />} />
-            <Route path="/cart" element={<Cart />} />
-          </Routes>
-          <Footer />
+        <Header />
+        <Routes>
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/" element={<Body />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/restaurant/:resId" element={<ResMenu />} />
+        </Routes>
+        <Footer />
       </div>
     </>
   );

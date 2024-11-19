@@ -2,7 +2,7 @@ import { ResCard } from "./ResCard";
 import { RES_URL } from "../utils/constants";
 import { useEffect, useState } from "react";
 import { Shimmer } from "./Shimmer";
-
+import { Link } from "react-router-dom";
 export const Body = () => {
   const [listOfResto, setListOfResto] = useState([]);
   const [searchText, setSearchText] = useState("");
@@ -57,7 +57,7 @@ export const Body = () => {
               const filteredList = listOfResto.filter(
                 (l) => l.info.avgRating > 4
               );
-              setFilteredRestaurant(filteredList);
+              setFilteredRestaurant(filteredList); 
             }}
           >
             Top Rated Restaurants
@@ -67,8 +67,10 @@ export const Body = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
         {listOfResto.length > 0
-          ? filteredRestaurant.map((restaurant, index) => (
-              <ResCard key={restaurant.id || index} resData={restaurant} />
+          ? filteredRestaurant.map((restaurant) => (
+              <Link to={"/restaurant/"+restaurant.info.id}  key={restaurant.info.id}>
+                <ResCard resData={restaurant} />
+              </Link>
             ))
           : Array(20)
               .fill()
