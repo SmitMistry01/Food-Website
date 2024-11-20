@@ -1,4 +1,4 @@
-import { ResCard } from "./ResCard";
+import { ResCard, withPromotedLabel } from "./ResCard";
 import { RES_URL } from "../utils/constants";
 import { useEffect, useState } from "react";
 import { Shimmer } from "./Shimmer";
@@ -17,18 +17,20 @@ export const Body = () => {
     try {
       const response = await fetch(RES_URL);
       const data = await response.json();
-
+      console.log(data);
       const restaurants =
-        data?.data?.cards
-          ?.find((card) => card.card.card["id"] === "restaurant_grid_listing")
-          ?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
-
+        data?.data?.cards?.find(
+          (card) => card.card.card["id"] === "restaurant_grid_listing"
+        )?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
+      console.log(restaurants);
       setListOfResto(restaurants);
       setFilteredRestaurant(restaurants);
     } catch (error) {
       console.error("Error fetching restaurant data:", error);
     }
   };
+
+  const ResCardPromoted = withPromotedLabel(ResCard);
 
   if (listOfResto.length === 0) {
     return (
@@ -48,15 +50,14 @@ export const Body = () => {
     <>
       <div className="flex items-center p-6 space-x-3">
         {/* Search Box */}
-        <SearchBox
-          resdata={listOfResto}
-          onSearch={setFilteredRestaurant}
-        />
+        <SearchBox resdata={listOfResto} onSearch={setFilteredRestaurant} />
         {/* Top Rated Button */}
         <button
           className="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition duration-300 ease-in-out"
           onClick={() =>
-            setFilteredRestaurant(listOfResto.filter((r) => r.info.avgRating > 4))
+            setFilteredRestaurant(
+              listOfResto.filter((r) => r.info.avgRating > 4)
+            )
           }
         >
           Top Rated Restaurants
@@ -70,7 +71,11 @@ export const Body = () => {
             to={`/restaurant/${restaurant.info.id}`}
             key={restaurant.info.id}
           >
-            <ResCard resData={restaurant} />
+            {restaurant.info.avgRating > 4.3 ? (
+              <ResCardPromoted resData={restaurant} />
+            ) : (
+              <ResCard resData={restaurant} />
+            )}
           </Link>
         ))}
       </div>
