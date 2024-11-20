@@ -18,10 +18,12 @@ export const Body = () => {
       const response = await fetch(RES_URL);
       const data = await response.json();
       console.log(data);
-      const restaurants =
-        data?.data?.cards?.find(
-          (card) => card.card.card["id"] === "restaurant_grid_listing"
-        )?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
+      // const restaurants =
+      //   data?.data?.cards?.find(
+      //     (card) => card.card.card["id"] === "restaurant_grid_listing"
+      //   )?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
+
+      const restaurants =  data?.data?.cards?.[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
       console.log(restaurants);
       setListOfResto(restaurants);
       setFilteredRestaurant(restaurants);

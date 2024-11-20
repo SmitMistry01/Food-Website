@@ -52,7 +52,7 @@ export const Header = () => {
           {/* Button Section */}
           <button className="px-5 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition duration-300 ease-in-out">
             Login
-          </button>{" "}
+          </button>
           {/* Orange button for the "Login" */}
         </nav>
       </div>
