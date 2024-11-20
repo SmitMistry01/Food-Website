@@ -1,32 +1,25 @@
-import { useState, useEffect } from "react";
-import { MENU_URL } from "../utils/constants";
 import { Shimmer } from "./Shimmer";
 import { useParams } from "react-router-dom";
+import { useResMenuCustomHook } from "../utils/useResMenuCustomHook";
+import { useOnlineStatus } from "./useOnlineStatus";
 
 export const ResMenu = () => {
-  const [restMenu, setRestMenu] = useState(null);
-  const {resId} = useParams();
-  useEffect(() => {
-    fetchMenu();
-  }, []);
+  const { resId } = useParams();
 
-  const fetchMenu = async () => {
-    const data = await fetch(MENU_URL + resId);
-    const json = await data.json();
-    console.log(json);
+  const restMenu = useResMenuCustomHook(resId);
 
-    setRestMenu(json.data);
-  };
+  const online = useOnlineStatus();
 
+  if (!online) return <h1>Looks like something went wrong</h1>;
   if (restMenu == null) return <Shimmer />;
 
   const { name, avgRating, costForTwoMessage, totalRatings, city } =
     restMenu?.cards?.[2]?.card?.card?.info || {};
 
-  const { itemCards } =
+  const itemCards =
     restMenu?.cards?.[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards?.[1]?.card
-      ?.card || {};
-  console.log(itemCards);
+      ?.card?.itemCards || [];
+
   return (
     <>
       <div className="menu">

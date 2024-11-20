@@ -1,5 +1,6 @@
 import { CDN_URL } from '../utils/constants';
 import { Shimmer } from './Shimmer';
+import { useOnlineStatus } from './useOnlineStatus';
 
 export const ResCard = ({ resData }) => {
   const {
@@ -11,6 +12,7 @@ export const ResCard = ({ resData }) => {
   } = resData?.info || {}; 
   const { deliveryTime } = resData?.info.sla || {};
 
+  const useOnline = useOnlineStatus()
   if (!resData) {
     return <Shimmer />;
   }
@@ -23,7 +25,7 @@ export const ResCard = ({ resData }) => {
         <img
           src={CDN_URL + cloudinaryImageId}
           alt="Restaurant"
-          className="w-full h-full object-cover rounded-lg transition-all duration-300 ease-in-out transform hover:scale-90"
+          className={`w-full h-full object-cover rounded-lg transition-all duration-300 ease-in-out transform hover:scale-90 ${!useOnline ? "opacity-30" : ""}`}
         />
       </div>
 
@@ -46,7 +48,7 @@ export const ResCard = ({ resData }) => {
         <h4 className="text-sm text-gray-600 mt-2">{costForTwo}</h4>
 
         {/* Order Now Button */}
-        <button className="mt-4 px-4 py-2 bg-orange-600 text-white rounded-full w-full hover:bg-orange-700 transition-all duration-300 ease-in-out transform hover:scale-105">
+        <button className={`mt-4 px-4 py-2 bg-orange-600 text-white rounded-full w-full hover:bg-orange-700 transition-all duration-300 ease-in-out transform hover:scale-105 ${!useOnline ? "opacity-30" : ""}`}>
           Order Now
         </button>
       </div>

@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import {LOGO_URL} from '../utils/constants';
+import { useOnlineStatus } from "./useOnlineStatus";
 
 export const Header = () => {
+  const useOnline = useOnlineStatus();
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
       <div className="container mx-auto flex items-center justify-between px-6 py-4">
@@ -19,6 +21,9 @@ export const Header = () => {
         {/* Navigation Section */}
         <nav className="flex items-center space-x-8">
           <ul className="flex space-x-6">
+            <li>
+              {useOnline ? "Online 😊":"Offline 😢"}
+            </li>
             <li>
               <Link
                 to="/"
