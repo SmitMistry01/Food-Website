@@ -7,8 +7,8 @@ export const ItemCards = ({ itemData }) => {
         const { id, name, description, price, defaultPrice, imageId } =
           items?.card?.info;
         return (
-          <>
-            <div key={id} className="border-b-8 p-5 flex justify-between">
+          <div key={id}>
+            <div className="border-b-8 p-5 flex justify-between">
               <div className="w-9/12 p-5">
                 <div className="text-xl font-semibold text-gray-800">
                   {name}
@@ -20,9 +20,9 @@ export const ItemCards = ({ itemData }) => {
                   {description}
                 </p>
                 <br></br>
-                <button className="px-3 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition duration-300 ease-in-out font-bold">
-            ADD
-          </button>
+                <button className="px-3 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-700 transition duration-300 ease-in-out font-bold">
+                  ADD
+                </button>
               </div>
               <div className="w-3/12 p-4 object-contain">
                 <img
@@ -31,7 +31,7 @@ export const ItemCards = ({ itemData }) => {
                 ></img>
               </div>
             </div>
-          </>
+          </div>
         );
       })}
     </ul>

@@ -11,7 +11,7 @@ export const useResMenuCustomHook = (resId) => {
   const fetchMenu = async () => {
     const data = await fetch(MENU_URL + resId);
     const json = await data.json();
-    console.log(json);
+    //console.log(json);
 
     setRestMenu(json.data);
   };

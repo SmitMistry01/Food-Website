@@ -3,15 +3,24 @@ import { useParams } from "react-router-dom";
 import { useResMenuCustomHook } from "../utils/useResMenuCustomHook";
 import { useOnlineStatus } from "./useOnlineStatus";
 import { ResMenuCard } from "./ResMenuCard";
+import { useState } from "react";
 
 export const ResMenu = () => {
   const { resId } = useParams();
+
+  //stateUpLifting
+  const [showIndex, setShowIndex] = useState(0);
 
   const restMenu = useResMenuCustomHook(resId);
 
   const online = useOnlineStatus();
 
-  if (!online) return <h1 className="text-3xl font-bold m-auto my-5">Looks like something went wrong</h1>;
+  if (!online)
+    return (
+      <h1 className="text-3xl font-bold m-auto my-5">
+        Looks like something went wrong
+      </h1>
+    );
   if (restMenu == null) return <Shimmer />;
 
   const { name, avgRating, costForTwoMessage, totalRatings, city } =
@@ -27,7 +36,7 @@ export const ResMenu = () => {
         c?.card.card?.["@type"] ==
         "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
     );
-  console.log(categories);
+  //console.log(categories);
 
   return (
     <>
@@ -84,14 +93,17 @@ export const ResMenu = () => {
           </div>
         </div>
       </div>
-      
-        {/* categories accordion */}
 
-        {categories.map((category) => (
-          <div key={category?.card?.card?.id}>
-            <ResMenuCard data={category?.card?.card} />
-          </div>
-        ))}
+      {/* categories accordion */}
+
+      {categories.map((category, index) => (
+        <ResMenuCard
+          data={category?.card?.card}
+          key={category?.card?.card?.title}
+          showItems={index == showIndex}
+          setShowIndex={() => setShowIndex(index === showIndex ? -1 : index)}
+        />
+      ))}
     </>
   );
 };
