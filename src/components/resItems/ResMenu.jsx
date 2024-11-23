@@ -1,14 +1,14 @@
-import { Shimmer } from "./Shimmer";
+import { Shimmer } from "../Shimmer";
 import { useParams } from "react-router-dom";
-import { useResMenuCustomHook } from "../utils/useResMenuCustomHook";
-import { useOnlineStatus } from "./useOnlineStatus";
+import { useResMenuCustomHook } from "../../utils/useResMenuCustomHook";
+import { useOnlineStatus } from "../../utils/useOnlineStatus";
 import { ResMenuCard } from "./ResMenuCard";
 import { useState } from "react";
 
 export const ResMenu = () => {
   const { resId } = useParams();
 
-  //stateUpLifting
+  // State to track which accordion section is expanded
   const [showIndex, setShowIndex] = useState(0);
 
   const restMenu = useResMenuCustomHook(resId);
@@ -36,7 +36,6 @@ export const ResMenu = () => {
         c?.card.card?.["@type"] ==
         "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
     );
-  //console.log(categories);
 
   return (
     <>
@@ -95,13 +94,12 @@ export const ResMenu = () => {
       </div>
 
       {/* categories accordion */}
-
       {categories.map((category, index) => (
         <ResMenuCard
           data={category?.card?.card}
           key={category?.card?.card?.title}
-          showItems={index == showIndex}
-          setShowIndex={() => setShowIndex(index === showIndex ? -1 : index)}
+          showItems={index == showIndex} // Show items if the current index matches showIndex
+          setShowIndex={() => setShowIndex(index === showIndex ? -1 : index)} // Toggle showIndex
         />
       ))}
     </>

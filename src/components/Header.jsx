@@ -1,9 +1,14 @@
 import { Link } from "react-router-dom";
 import {LOGO_URL} from '../utils/constants';
-import { useOnlineStatus } from "./useOnlineStatus";
+import { useOnlineStatus } from "../utils/useOnlineStatus";
+import { useContext } from "react";
+import { UserContext } from "../utils/UserContext";
 
 export const Header = () => {
+
   const useOnline = useOnlineStatus();
+  const {loggedInUser} = useContext(UserContext);
+
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
       <div className="container mx-auto flex items-center justify-between px-6 py-4">
@@ -53,6 +58,9 @@ export const Header = () => {
           <button className="px-5 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition duration-300 ease-in-out">
             Login
           </button>
+          <li className="font-bold text-orange-600">
+            {loggedInUser}
+          </li>
           {/* Orange button for the "Login" */}
         </nav>
       </div>

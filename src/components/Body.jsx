@@ -1,4 +1,4 @@
-import { ResCard, withPromotedLabel } from "./ResCard";
+import { ResCard, withPromotedLabel} from './resCard/ResCard'
 import { RES_URL } from "../utils/constants";
 import { useEffect, useState } from "react";
 import { Shimmer } from "./Shimmer";

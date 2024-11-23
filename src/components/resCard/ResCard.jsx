@@ -1,6 +1,6 @@
-import { CDN_URL } from "../utils/constants";
-import { Shimmer } from "./Shimmer";
-import { useOnlineStatus } from "./useOnlineStatus";
+import { CDN_URL } from "../../utils/constants";
+import { Shimmer } from "../Shimmer";
+import { useOnlineStatus } from "../../utils/useOnlineStatus";
 
 export const ResCard = ({ resData }) => {
   const {
