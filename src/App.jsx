@@ -12,6 +12,7 @@ import { UserContext } from "./utils/UserContext";
 import { useState } from "react";
 import { Provider } from "react-redux";
 import { appStore } from "./utils/redux/appStore";
+import { CustomizationCart } from './components/CustomizationCart';
 
 const Grocery = lazy(() => import("./components/Grocery"));
 
@@ -48,6 +49,7 @@ function App() {
             <Route path="/about" element={<AboutUs />} />
             <Route path="/" element={<Body />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/addons" element={<CustomizationCart />} />
             <Route path="/restaurant/:resId" element={<ResMenu />} />
             <Route
               path="/grocery"
