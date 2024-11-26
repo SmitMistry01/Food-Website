@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { CDN_URL } from "../../utils/constants";
 import { addItem } from "../../utils/redux/cartSlice";
-import { CustomizationCart } from "../CustomizationCart";
+import { CustomizationCart } from "../customization/CustomizationCart";
 import { useState } from "react";
 
 export const ItemCards = ({ itemData }) => {
