@@ -1,11 +1,14 @@
-/** @type {import('tailwindcss').Config} */
-export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+// Import defaultTheme from tailwindcss
+const defaultTheme = require('tailwindcss/defaultTheme');
+
+module.exports = {
+  content: ['./src/**/*.{js,jsx,ts,tsx}'], // Adjust based on your project structure
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        gilroy: ['Gilroy', ...defaultTheme.fontFamily.sans], // Use the imported defaultTheme
+      },
+    },
   },
   plugins: [],
 };
