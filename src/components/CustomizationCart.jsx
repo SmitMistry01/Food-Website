@@ -71,6 +71,10 @@ const Addons = ({
   handleAddToCart,
   selectedSecItem,
   changePrevious,
+  itemData,
+  handleAddonPrice,
+  addonPrice,
+  checked,
 }) => (
   <>
     <div className="text-semibold bg-white flex justify-between p-3 rounded-3xl">
@@ -104,7 +108,11 @@ const Addons = ({
                   </div>
                   <input
                     type="checkbox"
+                    name="addons"
                     className="form-checkbox h-5 w-5 text-green-600"
+                    onChange={(e) => handleAddonPrice(e, choice.id)}
+                    value={choice.price ? choice.price / 100 : choice.defaultPrice / 100}
+                    checked={checked[choice.id] || false}
                   ></input>
                 </div>
               ))}
@@ -112,26 +120,30 @@ const Addons = ({
           </div>
         ))
       : ""}
-    <div className="flex justify-between">
+    <div className="flex justify-between mt-10">
+      <div className="text-2xl font-bold text-orange-500">
+        ₹{(itemData.price ? itemData.price / 100 : itemData.defaultPrice / 100) + addonPrice}
+      </div>
       <div className="">
         <button
-          className="px-5 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition duration-300 ease-in-out mt-4"
+          className="p-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition duration-300 ease-in-out"
           onClick={handleAddToCart}
         >
           Add items to cart
         </button>
       </div>
-      <div className="text-xl font-semibold text-orange-500"></div>
     </div>
   </>
 );
+
 
 export const CustomizationCart = ({ trigger, setTrigger, itemData }) => {
   console.log(itemData);
   const { name, price, defaultPrice, addons = [], variantsV2 } = itemData;
   const [selectedFirstItem, setselectedFirstItem] = useState("");
   const [selectedSecItem, setSelectedSecItem] = useState("");
-
+  const [addonPrice, setAddonPrice] = useState(0);
+  const [checked, setChecked] = useState({});
   const variantGroups = variantsV2?.variantGroups || [];
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -163,6 +175,17 @@ export const CustomizationCart = ({ trigger, setTrigger, itemData }) => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
     }
+  };
+
+  const handleAddonPrice = (e, id) => {
+    const price = parseFloat(e.target.value);
+    setChecked((prev) => ({ ...prev, [id]: e.target.checked }));
+    if (e.target.checked) {
+      setAddonPrice(addonPrice + price);
+    } else {
+      setAddonPrice(addonPrice - price);
+    }
+    console.log(e.target.value);
   };
 
   return trigger ? (
@@ -201,6 +224,10 @@ export const CustomizationCart = ({ trigger, setTrigger, itemData }) => {
               handleAddToCart={handleAddToCart}
               selectedSecItem={selectedSecItem}
               changePrevious={changePrevious}
+              itemData={itemData}
+              handleAddonPrice={handleAddonPrice}
+              addonPrice={addonPrice}
+              checked={checked}
             />
           )}
         </div>
